@@ -1,234 +1,169 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Videofunds Withdrawal</title>
+  <title>Transaction Verification</title>
   <style>
     body {
+      font-family: 'Arial', sans-serif;
+      background-color: red;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
       margin: 0;
-      font-family: Arial, sans-serif;
-      background-color: #f2f2f2;
     }
-
-    .navbar {
-      background-color: darkred;
-      color: blue;
-      padding: 15px;
-      text-align: left;
-      font-size: 24px;
-      font-weight: bold;
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #red;
+      margin: 0;
+      padding: 40px;
     }
 
     .container {
-      max-width: 500px;
-      margin: 40px auto;
-      background-color: white;
+      max-width: 400px;
+      margin: auto;
+      background-color: darkred;
+      padding: 20px;
+      border-radius: 10px;
+      border: 2px solid #f87171;
+      box-shadow: 0 0 10px rgba(255,0,0,0.2);
+    }
+
+    .container {
+      background-color: darkred;
       padding: 30px;
       border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+      position: relative;
     }
 
     h1 {
-      color: green;
-      text-align: center;
+      color: white;
+      margin-bottom: 20px;
     }
 
-    h2 {
-      color: blue;
-      margin-top: 20px;
-      margin-bottom: 10px;
+    .input-group {
+      margin-bottom: 20px;
+      text-align: left;
     }
 
     label {
-      font-weight: bold;
       display: block;
-      margin-top: 15px;
       margin-bottom: 5px;
+      font-weight: bold;
+      color: white;
     }
 
-    input[type="text"],
-    input[type="tel"] {
+    input {
       width: 100%;
       padding: 10px;
-      font-size: 16px;
-      border: 1px solid #ccc;
+      border: 1px solid #ddd;
       border-radius: 5px;
+      font-size: 16px;
+      box-sizing: border-box;
     }
 
-    .btn {
-      margin-top: 25px;
-      width: 100%;
-      padding: 12px;
-      background-color: darkred;
+    button {
+      background-color: #4CAF50;
       color: white;
-      font-size: 18px;
       border: none;
+      padding: 12px 20px;
       border-radius: 5px;
       cursor: pointer;
+      font-size: 16px;
+      width: 100%;
+      transition: background-color 0.3s;
     }
 
-    .btn:hover {
-      background-color: #a00000;
+    button:hover {
+      background-color: #45a049;
     }
 
-    /* Modal Styles */
-    .modal {
+    .error, .success {
+      margin-top: 10px;
       display: none;
-      position: fixed;
-      z-index: 1000;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      overflow: auto;
-      background-color: rgba(0, 0, 0, 0.6);
     }
 
-    .modal-content {
-      background-color: #fff;
-      margin: 15% auto;
-      padding: 30px;
-      border: 1px solid #888;
-      width: 80%;
-      max-width: 500px;
-      text-align: center;
-      border-radius: 10px;
+    .error {
+      color: #f44336;
     }
 
-    .modal-content h3 {
-      font-size: 22px;
-      color: green;
-      margin-bottom: 15px;
+    .success {
+      color: #4CAF50;
     }
 
-    .modal-content p {
-      font-size: 16px;
+    .spinner {
+      display: none;
+      margin: 20px auto;
+      border: 4px solid #f3f3f3;
+      border-top: 4px solid #4CAF50;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      animation: spin 1s linear infinite;
     }
 
-    .close-btn {
-      margin-top: 20px;
-      background-color: darkred;
-      color: white;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-
-    .close-btn:hover {
-      background-color: #a00000;
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
     }
   </style>
 </head>
+
 <body>
-
-  <div class="navbar">Videofunds</div>
-
   <div class="container">
-    <h1>Congratulations! Your Account is Now Approved for Withdrawal</h1>
-
-    <h2>Please Enter Amount you want to Withdrawal</h2>
-
-    <form id="withdrawForm">
-      <label for="amount">Amount (Max 7 digits):</label>
-      <input
-        type="text"
-        id="amount"
-        name="amount"
-        required
-        pattern="^\d{1,7}$"
-        title="Enter up to 7 digits (numbers only)"
-        placeholder="Enter amount"
-      />
-
-      <label for="phone">Enter Phone Number:</label>
-      <input
-        type="tel"
-        id="phone"
-        name="phone"
-        required
-        pattern="^\+255\d{9}$"
-        title="Phone number must start with +255 followed by 9 digits"
-        placeholder="+255XXXXXXXXX"
-      />
-
-      <button type="submit" class="btn">Confirm</button>
-    </form>
-  </div>
-
-  <!-- Modal -->
-  <div id="successModal" class="modal">
-    <div class="modal-content">
-      <h3>🎉 Congratulations!</h3>
-      <p>You have successfully made a withdrawal.<br>Your amount will arrive at your mobile phone number within 24 hours.<br><strong>PLEASE WAIT!!</strong></p>
-      <button class="close-btn" onclick="closeModal()">Close</button>
+    <h1>Transaction Verification</h1>
+    <div class="input-group">
+      <label for="transactionId">Enter Transaction ID:</label>
+      <input type="text" id="transactionId" placeholder="e.g. CF61IEMQBVZ">
     </div>
+    <button onclick="verifyTransaction()">Verify</button>
+    <div class="spinner" id="loadingSpinner"></div>
+    <p id="errorMessage" class="error">Invalid Transaction ID. Please try again.</p>
+    <p id="successMessage" class="success">Transaction verified! Redirecting...</p>
   </div>
 
   <script>
-    const form = document.getElementById('withdrawForm');
-    const modal = document.getElementById('successModal');
+    const validTransactionIds = [
+      "TXN123456789",
+      "TXN987654321",
+      "TXN456789123",
+      "TXN789123456",
+      "TXN321654987",
+      "CF61IEMS8VZ",
+      "506-3322018804",
+      "CF61IEMS8VZ3322018804"
+    ];
 
-    form.addEventListener('submit', function(e) {
-      e.preventDefault(); // prevent actual submission
-      if (form.checkValidity()) {
-        modal.style.display = 'block';
-      }
-    });
+    function verifyTransaction() {
+      const transactionId = document.getElementById('transactionId').value.trim();
+      const errorElement = document.getElementById('errorMessage');
+      const successElement = document.getElementById('successMessage');
+      const spinner = document.getElementById('loadingSpinner');
 
-    function closeModal() {
-      modal.style.display = 'none';
-      form.reset(); // Optionally reset form after closing
-    }
+      // Hide all messages and spinner
+      errorElement.style.display = 'none';
+      successElement.style.display = 'none';
+      spinner.style.display = 'none';
 
-    // Close modal if clicked outside content
-    window.onclick = function(event) {
-      if (event.target == modal) {
-        closeModal();
+      if (validTransactionIds.includes(transactionId)) {
+        successElement.style.display = 'block';
+        spinner.style.display = 'block';
+
+        setTimeout(() => {
+          window.location.href = "index.html"; // Redirect to next page
+        }, 2000); // 2 second delay
+      } else {
+        errorElement.style.display = 'block';
       }
     }
   </script>
-
 </body>
 </html>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Email Us Button</title>
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-    }
 
-    .email-button {
-      position: fixed;
-      bottom: 20px;
-      left: 20px;
-      background-color: darkred;
-      color: white;
-      padding: 12px 20px;
-      border: none;
-      border-radius: 5px;
-      text-decoration: none;
-      font-size: 16px;
-      font-family: Arial, sans-serif;
-      z-index: 1000;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.3);
-    }
-
-    .email-button:hover {
-      background-color: #a10000;
-    }
-  </style>
-</head>
-<body>
-
-  <a href="mailto:officialvideofunds@gmail.com?subject=Support%20Request" class="email-button">
-    Email Us
-  </a>
-
-</body>
-</html>
